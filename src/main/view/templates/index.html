@@ -1,0 +1,216 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script th:src="@{/static/js/jquery-3.5.1.js}"></script>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}" crossorigin="anonymous">
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"  crossorigin="anonymous"></script>
+    <title>信贷管理主页</title>
+
+
+    <style >
+        body {
+            background-image: url(../static/images/bg.png);
+            background-position: 14px 14px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            height: 100%;
+        }
+
+        iframe{
+            width: 100%;
+            height: 100%;
+        }
+
+        .col_left{
+            padding: 10px;
+
+            margin-top: 10px;
+        }
+        .col_left_in{
+            /*padding: 5px;*/
+
+            margin-top: 2px;
+            width: 100%;
+            height: 25px;
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container-fluid" >
+    <header>
+        <div class="row" style="height: 8%;background-color: #92b6e8;">
+            <div class="col-md-4" style="font-size: 30px;margin-top: 10px;width: 40%;">
+                金融信贷管理系统
+            </div>
+            <div class="col-md-6" style="width: 60%;">
+                <div class="glyphicon glyphicon-user" style="margin-left:730px;float:left;margin-top: 17px;font-size: 20px; "></div>
+                <div class="dropdown" style="float: right;margin-top: 16px;margin-right: 65px;">
+                    <li class="dropdown"  style="list-style-type:none;" >
+                        <a th:text="${username}" class="dropdown-toggle" data-toggle="dropdown" style="color:whitesmoke;font-size: 17px;margin-top: 16px;text-decoration:none;">
+                            <b class="caret"></b></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="min-width:100%;">
+                        <li data-toggle="modal" data-target="#md2"><a th:href="@{#}"><span class="glyphicon glyphicon-pencil">&nbsp;修改密码</span></a></li>
+                        <li><a th:href="@{#}"><span class="glyphicon glyphicon-user" >&nbsp;个人信息</span></a></li>
+                        <li data-toggle="modal" data-target="#md"><a th:href="@{#}" ><span class="glyphicon glyphicon-plus"  >&nbsp;完善信息</span>
+                            </a>
+                        </li>
+
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="@{/logout}"><i class="glyphicon glyphicon-off">&nbsp;退出登录</i></a></li>
+                    </ul>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="row" style="height: 92%;">
+        <div class="col-md-1" style=" height: 100%;background-color: #34495E; width: 17%;color:white;">
+            <div class="col_left">
+                <div class="col_left_in" >
+                    <div style="width: 30%;height: 100%;float:left;">
+                        <a class="glyphicon glyphicon-home" th:href="@{/usermes/usermespage} " style="color: white;text-decoration:none" target="secog"></a>
+                    </div>
+                    <div style="width: 50%;height: 100%;float:left;">
+                        <a th:href="@{/usermes/usermespage} " style="color: white;text-decoration:none" target="secog">用户管理</a>
+                    </div>
+                    <div style="width: 20%;height: 100%;float:left;">
+                        <a class="glyphicon glyphicon-chevron-right" th:href="@{/usermes/usermespage}" style="color: white;text-decoration:none" target="secog"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col_left">
+                <div class="col_left_in" >
+                    <div style="width: 30%;height: 100%;float:left;">
+                        <span class="glyphicon glyphicon-home"></span>
+                    </div>
+                    <div style="width: 50%;height: 100%;float:left;">
+                        <a th:href="@{/registepage} " style="color: white;text-decoration:none" target="secog">用户管理</a>
+                    </div>
+                    <div style="width: 20%;height: 100%;float:left;">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-9" style="width: 83%;" >
+            <iframe name="secog" th:src="@{/usermes/usermespage}" frameborder="0">
+
+            </iframe>
+
+        </div>
+    </div>
+</div>
+
+<!--完善信息模态框-->
+<div class="modal fade" id="md" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">完善个人信息</h4>
+            </div>
+            <form class="form-horizontal" th:action="@{/main/infcom}">
+            <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="cardno" class="col-sm-2 control-label">身&nbsp;份&nbsp;证&nbsp;号</label>
+                        <div class="col-sm-10"  >
+                            <input type="text" name="cardno" class="form-control" style="width: 50%" id="cardno" required>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="realname" class="col-sm-2 control-label">姓&nbsp;&nbsp;名</label>
+                        <div class="col-sm-10"  >
+                            <input name="realname" type="text" class="form-control" style="width: 50%" id="realname" required>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="phone" class="col-sm-2 control-label">联&nbsp;系&nbsp;电&nbsp;话</label>
+                        <div class="col-sm-10"  >
+                            <input name="phone" type="text" class="form-control" style="width: 50%" id="phone" required>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="email" class="col-sm-2 control-label">邮&nbsp;&nbsp;箱</label>
+                        <div class="col-sm-10"  >
+                            <input name="email" type="email" class="form-control" style="width: 50%" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="address" class="col-sm-2 control-label">家&nbsp;庭&nbsp;住&nbsp;址</label>
+                        <div class="col-sm-10"  >
+                            <input name="address" type="text" class="form-control" style="width: 50%" id="address" required>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="record" class="col-sm-2 control-label">学&nbsp;&nbsp;历</label>
+                        <div class="col-sm-10"  >
+                            <input name="record" type="text" class="form-control" style="width: 50%" id="record" required>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="professiona" class="col-sm-2 control-label">职&nbsp;&nbsp;业</label>
+                        <div class="col-sm-10"  >
+                            <input name="professiona" type="text" class="form-control" style="width: 50%" id="professiona" required>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary" id="security-expand-button">提交</button>
+
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--修改密码模态框-->
+<div class="modal fade" id="md2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">修改密码</h4>
+            </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" th:action="@{#}">
+                        <div class="form-group" >
+                            <label for="password" class="col-sm-2 control-label">新&nbsp;&nbsp;密&nbsp;&nbsp;码</label>
+                            <div class="col-sm-10"  >
+                                <input name="password" type="text" class="form-control" style="width: 50%" id="password" >
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    function shows(a) {
+        $('.buttonText').text(a)
+    }
+    $('.alert-danger').removeClass('hide').addClass('in')
+</script>
+
+</html>

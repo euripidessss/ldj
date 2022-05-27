@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>信贷管理平台</title>
+</head>
+<link rel="stylesheet"  th:href="@{~/static/css/default.css}"  type="text/css">
+<link th:href="@{~/static/css/index.css}" rel="stylesheet" />
+<link th:href="@{~/static/font/iconfont.css}"  rel="stylesheet" />
+
+
+<body style="height:100%;">
+    <div class="boxer">
+
+		<div class="box1" style="margin-top: 130px">
+		    <div class="middle1" >
+		    	<div class="middle_left">
+<!--		    		<img src="../static/images/pic1.png"/>-->
+		    	</div>
+		    	<div class="middle_right" >
+		    		<div class="mr_box">
+		    			<h2>欢迎登录</h2>
+						<form th:action="@{/login}">
+							<div class="form-group">
+								<span class="iconfont icon-Profile icon_p"></span>
+								  <input type="text" class="form-control icon-user" name="account" placeholder="请输入您的用户名">
+							</div>
+							<div class="form-group mar_b">
+								<span class="iconfont icon-Unlock icon_p"></span>
+								  <input type="password" class="form-control icon-pass" name="password" placeholder="请输入您的密码">
+							</div>
+							<div class="form-check font-s">
+								<div class="custom-control custom-checkbox small" th:size="50px">
+									<a th:href="@{/registepage}" >注册账户</a>
+							    </div>
+							</div>
+							<div class="f_pass">
+								<div class="f_pass_n">
+									<div th:text="${erromesg}" style="color: #dc0a0a"></div>
+								</div>
+							</div>
+							<button type="submit" class="login">登录</button>
+						</form>
+		            </div>
+		    	</div>
+		    </div>
+		</div>
+    </div>
+</body>
+</html>

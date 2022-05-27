@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html>-->
+<head>
+    <meta charset="UTF-8">
+    <title>传值专用</title>
+</head>
+<body>
+
+    <form th:action="@{/usermes/ControllerB}"  name="gh">
+        <input  name="param" th:value="${param}" >
+    </form>
+<script>
+    // var msg = [[${param}]];
+    // document.write("<form th:action=\"@{/usermes/ControllerB}\"  name=\"gh\" >");
+    // document.write("<input  name=\"param\" th:value=\"${param}>");
+    // document.write("</form>");
+    setTimeout("document.gh.submit()",0)
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.euripidess.credit_management.dao.CUserDao">
+  <resultMap id="BaseResultMap" type="com.euripidess.credit_management.pojo.entity.CUser">
+    <id column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="registration_time" jdbcType="TIMESTAMP" property="registrationTime" />
+    <association property="cUserMessage" javaType="com.euripidess.credit_management.pojo.entity.CUserMessage" >
+      <id column="userid" jdbcType="INTEGER" property="userid" />
+      <result column="realname" jdbcType="VARCHAR" property="realname" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+      <result column="address" jdbcType="VARCHAR" property="address" />
+      <result column="email" jdbcType="VARCHAR" property="email" />
+      <result column="cardno" jdbcType="VARCHAR" property="cardno" />
+      <result column="record" jdbcType="VARCHAR" property="record" />
+      <result column="loginTime" jdbcType="TIMESTAMP" property="loginTime" />
+    </association>
+    <association property="assetInformation" javaType="com.euripidess.credit_management.pojo.entity.AssetInformation" >
+      <id column="userid" jdbcType="INTEGER" property="userid" />
+      <result column="credit_rating" jdbcType="INTEGER" property="creditRating" />
+      <result column="credit_score" jdbcType="INTEGER" property="creditScore" />
+      <result column="blacklist" jdbcType="INTEGER" property="blacklist" />
+    </association>
+
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    userid, account, `password`, registration_time,status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from c_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectOneByAccountUser" resultType="com.euripidess.credit_management.pojo.entity.CUser">
+    select
+      password
+    from c_user
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
+  <select id="selectOneByUserid" resultType="com.euripidess.credit_management.pojo.entity.CUser">
+    select
+      userid
+    from c_user
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
+  <select id="selectMaxByUserid" resultType="java.lang.Integer">
+    select max(userid) from c_user
+  </select>
+  <select id="selectByUser" resultType="com.euripidess.credit_management.pojo.entity.CUser">
+    select
+      account
+    from c_user
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
+    <select id="selectAccount" resultType="com.euripidess.credit_management.pojo.entity.CUser">
+      select account from c_user
+      where userid = #{userid,jdbcType=INTEGER}
+    </select>
+<!--  <select id="selectALL" resultType="com.euripidess.credit_management.pojo.entity.CUser">&#45;&#45;-->
+  <select id="selectALL" resultMap="BaseResultMap">
+--      select a.userid,a.account,a.password,b.realname,c.credit_rating,c.credit_score,c.status,c.blacklist from  c_user a left join c_user_message b on a.userid=b.userid
+--         left join asset_information c on a.userid=c.userid
+select * from  c_user a left join c_user_message b on a.userid=b.userid left join asset_information c on a.userid=c.userid
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from c_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="userid" keyProperty="userid" parameterType="com.euripidess.credit_management.pojo.entity.CUser" useGeneratedKeys="true">
+    insert into c_user (account, `password`, registration_time,status
+      )
+    values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},now(),#{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="userid" keyProperty="userid" parameterType="com.euripidess.credit_management.pojo.entity.CUser" useGeneratedKeys="true">
+    insert into c_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="registrationTime != null">
+        registration_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationTime != null">
+        #{registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.euripidess.credit_management.pojo.entity.CUser">
+    update c_user
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationTime != null">
+        registration_time = #{registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.euripidess.credit_management.pojo.entity.CUser">
+    update c_user
+    set account = #{account,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      registration_time = #{registrationTime,jdbcType=TIMESTAMP},
+        status=#{status,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+
+</mapper>
