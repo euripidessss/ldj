@@ -60,8 +60,6 @@ public class LoginContrller {
 
         }
 
-
-
         @RequestMapping("/registepage")//跳转注册页面请求
         String registepage_request(){
             return "registepg";
